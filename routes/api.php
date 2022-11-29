@@ -41,6 +41,10 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         // Workspace
         Route::get('/workspace/{workspace}', [WorkspaceController::class, 'show'])->name('workspace.show');
         Route::post('/workspace', [WorkspaceController::class, 'store'])->name('workspace.store');
-        Route::put('/workspace/{workspace}', [WorkspaceController::class, 'update'])->name('workspace.update'); 
+        Route::put('/workspace/{workspace}', [WorkspaceController::class, 'update'])->name('workspace.update');
+        Route::delete('/workspace/{workspace}', [WorkspaceController::class, 'delete'])->name('workspace.delete');
+        Route::get('/workspace/{workspace}/boards', [WorkspaceController::class, 'showBoards'])->name('workspace.showBoards');
+
+        // Board
     });
 });

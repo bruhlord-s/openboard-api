@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Workspace\StoreRequest;
 use App\Http\Requests\Workspace\UpdateRequest;
+use App\Http\Resources\BoardResource;
 use App\Http\Resources\WorkspaceResource;
+use App\Models\Board;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,25 @@ class WorkspaceController extends Controller
     public function store(StoreRequest $request)
     {
         $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
-        Workspace::create($request->toArray());
+        $workspace = Workspace::create($request->toArray());
+
+        $workspace->boards()->createMany([
+            [
+                'name' => 'To Do',
+                'slug' => 'to-do',
+                'workspace_id' => $workspace->id
+            ],
+            [
+                'name' => 'In Progress',
+                'slug' => 'in-progress',
+                'workspace_id' => $workspace->id
+            ],
+            [
+                'name' => 'Complete',
+                'slug' => 'complete',
+                'workspace_id' => $workspace->id
+            ],
+        ]);
 
         return response([], 201);
     }
@@ -37,5 +57,10 @@ class WorkspaceController extends Controller
         $workspace->delete();
 
         return response([]);
+    }
+
+    public function showBoards(Request $request, Workspace $workspace)
+    {
+        return BoardResource::collection($workspace->boards()->get());
     }
 }
