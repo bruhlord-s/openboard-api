@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Board\StoreRequest;
+use App\Http\Requests\Board\UpdateRequest;
 use App\Http\Resources\BoardResource;
 use App\Models\Board;
 use App\Models\Workspace;
@@ -25,6 +26,21 @@ class BoardController extends Controller
     {
         $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
         Board::create($request->toArray());
+
+        return response([]);
+    }
+
+    public function update(UpdateRequest $request, Board $board)
+    {
+        $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
+        $board->update($request->toArray());
+
+        return response([], 204);
+    }
+
+    public function delete(Board $board)
+    {
+        $board->delete();
 
         return response([]);
     }

@@ -47,5 +47,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
         // Board
         Route::post('/board', [BoardController::class, 'store'])->name('board.store');
+        Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
+        Route::delete('/board/{board}', [BoardController::class, 'delete'])->name('board.delete');
     });
 });
