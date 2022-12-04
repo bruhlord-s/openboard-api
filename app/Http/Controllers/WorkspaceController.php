@@ -14,7 +14,7 @@ class WorkspaceController extends Controller
 {
     public function show(Request $request, Workspace $workspace)
     {
-        $workspaceWithBoards = $workspace->with('boards')->first();
+        $workspaceWithBoards = Workspace::whereId($workspace->id)->with('boards')->first();
         return WorkspaceResource::make($workspaceWithBoards);
     }
 
@@ -27,16 +27,19 @@ class WorkspaceController extends Controller
             [
                 'name' => 'To Do',
                 'slug' => 'to-do',
+                'color' => '#797979',
                 'workspace_id' => $workspace->id
             ],
             [
                 'name' => 'In Progress',
                 'slug' => 'in-progress',
+                'color' => '#005eff',
                 'workspace_id' => $workspace->id
             ],
             [
                 'name' => 'Complete',
                 'slug' => 'complete',
+                'color' => '#00bc24',
                 'workspace_id' => $workspace->id
             ],
         ]);

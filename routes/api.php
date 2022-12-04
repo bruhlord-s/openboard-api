@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkspaceController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\BoardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,5 +46,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::get('/workspace/{workspace}/boards', [WorkspaceController::class, 'showBoards'])->name('workspace.showBoards');
 
         // Board
+        Route::post('/board', [BoardController::class, 'store'])->name('board.store');
     });
 });

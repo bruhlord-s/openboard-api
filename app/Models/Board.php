@@ -9,7 +9,7 @@ class Board extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'workspace_id'];
+    protected $fillable = ['name', 'slug', 'workspace_id', 'color'];
 
     public function workspace()
     {
