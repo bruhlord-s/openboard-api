@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Workspace\StoreRequest;
 use App\Http\Requests\Workspace\UpdateRequest;
 use App\Http\Resources\BoardResource;
+use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkspaceResource;
 use App\Models\Board;
 use App\Models\Workspace;
@@ -62,8 +63,13 @@ class WorkspaceController extends Controller
         return response([]);
     }
 
-    public function showBoards(Request $request, Workspace $workspace)
+    public function boards(Request $request, Workspace $workspace)
     {
         return BoardResource::collection($workspace->boards()->get());
+    }
+
+    public function members(Request $request, Workspace $workspace)
+    {
+        return UserResource::collection($workspace->group->users()->get());
     }
 }
