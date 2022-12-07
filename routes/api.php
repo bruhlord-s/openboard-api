@@ -5,6 +5,7 @@ use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,5 +51,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::post('/board', [BoardController::class, 'store'])->name('board.store');
         Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
         Route::delete('/board/{board}', [BoardController::class, 'delete'])->name('board.delete');
+
+        // Task
+        Route::post('/task', [TaskController::class, 'store'])->name('task.store');
     });
 });
