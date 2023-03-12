@@ -23,7 +23,7 @@ class GroupController extends Controller
     {
         $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
         $group = Group::create($request->toArray());
-        $group->users()->attach($request->user()->get());
+        $group->users()->attach($request->user()->id);
 
         return response([], 201);
     }
