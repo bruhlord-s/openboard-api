@@ -23,7 +23,7 @@ class WorkspaceResource extends JsonResource
             }),
             'boards' => $this->whenLoaded('boards', function () {
                 return BoardResource::collection($this->boards);
-            })
+            }),
         ];
     }
 }

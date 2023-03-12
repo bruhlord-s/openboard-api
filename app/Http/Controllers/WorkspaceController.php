@@ -15,7 +15,7 @@ class WorkspaceController extends Controller
 {
     public function show(Request $request, Workspace $workspace)
     {
-        $workspaceWithBoards = Workspace::whereId($workspace->id)->with('boards.tasks.user')->first();
+        $workspaceWithBoards = Workspace::whereId($workspace->id)->with(['boards.tasks.user', 'group.users'])->first();
         return WorkspaceResource::make($workspaceWithBoards);
     }
 
