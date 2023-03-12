@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Task\StoreRequest;
 use App\Http\Requests\Task\UpdateRequest;
 use App\Models\Task;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -19,6 +20,13 @@ class TaskController extends Controller
     {
         $task->update($request->toArray());
 
-        response([], 201);
+        response([], 204);
+    }
+
+    public function delete(Request $request, Task $task)
+    {
+        $task->delete();
+
+        response([], 204);
     }
 }
