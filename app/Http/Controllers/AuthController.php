@@ -11,17 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register (RegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = \Illuminate\Support\Str::random(10);
 
         $user = User::create($request->toArray());
-
-        // Group::create([
-        //     'name' => $request['name'] . ' group',
-        //     'slug' => \Illuminate\Support\Str::slug($request['name'] . ' group')
-        // ]);
 
         $token = $user->createToken('api_token')->accessToken;
 
@@ -29,7 +24,7 @@ class AuthController extends Controller
         return response($response);
     }
 
-    public function login (LoginRequest $request)
+    public function login(LoginRequest $request)
     {
         $user = User::where('email', $request['email'])->first();
 
@@ -49,7 +44,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout (Request $request)
+    public function logout(Request $request)
     {
         $token = $request->user()->token();
         $token->revoke();

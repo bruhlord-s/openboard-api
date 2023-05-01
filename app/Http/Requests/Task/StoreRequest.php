@@ -28,7 +28,9 @@ class StoreRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
-            'time_estimated' => 'nullable|numeric'
+            'time_estimated' => 'nullable|numeric',
+            'attachments' => 'array',
+            'attachments.*' => 'file|mimes:png,jpg'
         ];
     }
 }
