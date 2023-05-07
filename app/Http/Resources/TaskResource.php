@@ -19,10 +19,12 @@ class TaskResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'board_id' => $this->board_id,
+            'board' => BoardResource::make($this->board),
             'user_id' => $this->user_id,
             'user' => $this->whenLoaded('user', function () {
                 return UserResource::make($this->user);
             }),
+            'attachments' => TaskAttachmentResource::collection($this->attachments),
             'time_spent' => $this->time_spent,
             'time_estimated' => $this->time_estimated,
         ];

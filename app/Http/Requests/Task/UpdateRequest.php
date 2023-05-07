@@ -24,8 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'board_id' => 'required|exists:boards,id',
-            'name' => 'required|string|max:255',
+            'board_id' => 'nullable|exists:boards,id',
+            'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'user_id' => 'nullable|exists:users,id',
             'time_estimated' => 'nullable|numeric'

@@ -15,14 +15,17 @@ class TaskController extends Controller
     {
         $task = Task::create($request->toArray());
         
-        foreach($request->attachments as $attachment) {
-            $path = Storage::disk('public')->put('attachments/' . $task->id, $attachment);
-
-            TaskAttachment::create([
-                'task_id' => $task->id,
-                'file' => Storage::url($path),
-            ]);
+        if ($request->attachments) {
+            foreach($request->attachments as $attachment) {
+                $path = Storage::disk('public')->put('attachments/' . $task->id, $attachment);
+    
+                TaskAttachment::create([
+                    'task_id' => $task->id,
+                    'file' => Storage::url($path),
+                ]);
+            }
         }
+        
 
         response([], 201);
     }

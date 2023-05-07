@@ -26,19 +26,19 @@ class WorkspaceController extends Controller
 
         $workspace->boards()->createMany([
             [
-                'name' => 'To Do',
-                'slug' => 'to-do',
+                'name' => 'Бэклог',
+                'slug' => 'backlog',
                 'color' => '#797979',
                 'workspace_id' => $workspace->id
             ],
             [
-                'name' => 'In Progress',
+                'name' => 'В работе',
                 'slug' => 'in-progress',
                 'color' => '#005eff',
                 'workspace_id' => $workspace->id
             ],
             [
-                'name' => 'Complete',
+                'name' => 'Готово',
                 'slug' => 'complete',
                 'color' => '#00bc24',
                 'workspace_id' => $workspace->id
