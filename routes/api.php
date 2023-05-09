@@ -30,6 +30,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
         // User
         Route::get('/user', [UserController::class, 'me'])->name('user.me');
+        Route::post('/user', [UserController::class, 'update'])->name('user.update');
 
         // Group
         Route::get('/group/{group}', [GroupController::class, 'show'])->name('group.show');

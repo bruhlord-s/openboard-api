@@ -17,6 +17,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'avatar' => $this->avatar ? asset($this->avatar) : null,
             'email' => $this->email,
             'groups' => $this->whenLoaded('groups', function () {
                 $groupsWithWorkspaces = $this->groups()->with('workspaces')->get();
