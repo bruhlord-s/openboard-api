@@ -24,7 +24,14 @@ class InviteToGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_email' => 'required|string|email|max:255|exists:users,email'
+            'email' => 'required|string|email|max:255|exists:users,email'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.exists' => 'Пользователь не найден!',
         ];
     }
 }
