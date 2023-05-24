@@ -51,8 +51,8 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
         // Board
         Route::post('/board', [BoardController::class, 'store'])->name('board.store');
-        Route::put('/board/{board}', [BoardController::class, 'update'])->name('board.update');
-        Route::delete('/board/{board}', [BoardController::class, 'delete'])->name('board.delete');
+        Route::put('/board/{board}', [BoardController::class, 'update'])->can('update', 'board')->name('board.update');
+        Route::delete('/board/{board}', [BoardController::class, 'delete'])->can('delete', 'board')->name('board.delete');
 
         // Task
         Route::post('/task', [TaskController::class, 'store'])->name('task.store');

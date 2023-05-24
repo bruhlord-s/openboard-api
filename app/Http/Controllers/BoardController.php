@@ -23,7 +23,15 @@ class BoardController extends Controller
     }
 
     public function store(StoreRequest $request)
-    {
+    {   
+        // TODO: move this to policy
+        $workspace = Workspace::whereId($request['workspace_id'])->first();
+        $groupUsersIds = $workspace->group->users->pluck('id')->toArray();
+
+        if (!in_array($request->user()->id, $groupUsersIds)) {
+            return response([], 403);
+        }
+        
         $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
         Board::create($request->toArray());
 
