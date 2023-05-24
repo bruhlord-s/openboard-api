@@ -8,6 +8,7 @@ use App\Http\Resources\BoardResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\WorkspaceResource;
 use App\Models\Board;
+use App\Models\Group;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,14 @@ class WorkspaceController extends Controller
 
     public function store(StoreRequest $request)
     {
+        // TODO: move this to policy
+        $group = Group::whereId($request['group_id'])->first();
+        $groupUsersIds = $group->users->pluck('id')->toArray();
+
+        if (!in_array($request->user()->id, $groupUsersIds)) {
+            return response([], 403);
+        }
+
         $request['slug'] = \Illuminate\Support\Str::slug($request['name']);
         $workspace = Workspace::create($request->toArray());
 

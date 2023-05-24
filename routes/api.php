@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\TaskController;
+use App\Models\Group;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,16 +36,16 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         // Group
         Route::get('/group/{group}', [GroupController::class, 'show'])->name('group.show');
         Route::post('/group', [GroupController::class, 'store'])->name('group.store');
-        Route::put('/group/{group}', [GroupController::class, 'update'])->name('group.update');
-        Route::delete('/group/{group}', [GroupController::class, 'delete'])->name('group.delete');
+        Route::put('/group/{group}', [GroupController::class, 'update'])->can('update', 'group')->name('group.update');
+        Route::delete('/group/{group}', [GroupController::class, 'delete'])->can('delete', 'group')->name('group.delete');
         // Route::post('/group/join', [GroupController::class, 'join'])->name('group.join');
-        Route::post('/group/invite/{group}', [GroupController::class, 'invite'])->name('group.invite');
+        Route::post('/group/invite/{group}', [GroupController::class, 'invite'])->can('invite', 'group')->name('group.invite');
 
         // Workspace
         Route::get('/workspace/{workspace}', [WorkspaceController::class, 'show'])->name('workspace.show');
         Route::post('/workspace', [WorkspaceController::class, 'store'])->name('workspace.store');
-        Route::put('/workspace/{workspace}', [WorkspaceController::class, 'update'])->name('workspace.update');
-        Route::delete('/workspace/{workspace}', [WorkspaceController::class, 'delete'])->name('workspace.delete');
+        Route::put('/workspace/{workspace}', [WorkspaceController::class, 'update'])->can('update', 'workspace')->name('workspace.update');
+        Route::delete('/workspace/{workspace}', [WorkspaceController::class, 'delete'])->can('update', 'workspace')->name('workspace.delete');
         Route::get('/workspace/{workspace}/boards', [WorkspaceController::class, 'boards'])->name('workspace.boards');
         Route::get('/workspace/{workspace}/members', [WorkspaceController::class, 'members'])->name('workspace.members');
 
